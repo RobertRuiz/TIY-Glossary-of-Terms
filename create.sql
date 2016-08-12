@@ -16,8 +16,9 @@ name,
 subject)
 VALUES
 (
-"Ruby",
-"programming");
+"Programming",
+"Ruby"
+);
 
 INSERT INTO categories (
 name,
