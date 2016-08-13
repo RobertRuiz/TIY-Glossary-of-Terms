@@ -1,8 +1,6 @@
 require_relative 'models'
-
 require 'sinatra'
 require 'rack-flash'
-
 require 'sinatra/reloader' if development?
 
 use Rack::MethodOverride
