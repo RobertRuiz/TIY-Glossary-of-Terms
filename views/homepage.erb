@@ -1,4 +1,19 @@
-<% content_for :page_header do%>
-Welcome to the Iron Slag - Iron Yard's own Glossary of Tech and Comedy terms
+<h1>Welcome to the Iron Slag <br> The Iron Yard's own Glossary of Front and Back End Engineering terms</h1>
+
+<h2></a></h2>
+<a href="/list_of_terms.erb', :text => 'See a list of all Terms currently in the Glossary') %>
+
+<ul>
+<% @terms.each do |term| %>
+  <li><a href="/terms/<%= :id %>"><%= term.name%></a></li>
 <% end %>
-<h2>The most recent 5 terms added are: #{} </h2>
+</ul>
+
+<h2>Categories</h2>
+
+<% @categories.each do |category| %>
+  <li><a href="/categories/<%= :id %>"><%= category.name %></a></li>
+
+
+<% end %>
+</ul>

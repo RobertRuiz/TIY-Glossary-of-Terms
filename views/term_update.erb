@@ -1,0 +1,28 @@
+<form action="/terms/update/<%= @term.id %>" method="post">
+  <ul>
+    <li>
+      <label for="name">Name</label>
+      <input type="text" name="term[name]" value="<%= @term.name %>">
+    </li>
+    <li>
+      <label for="definition">Definition</label>
+      <input type="text" name="term[definition]" value="<%= @term.definition %>">
+    </li>
+
+    <li>
+      <label for="author">Author</label>
+      <input type="text" name="term[author]" value="<%= @term.author %>">
+    </li>
+
+    <li>
+      <label for="resource">Resource (web link)</label>
+      <input type="text" name="term[web_link]" value="<%= @term.web_link %>">
+    </li>
+
+    <li>
+      <input type="submit" value="Update">
+    </li>
+  </ul>
+</form>
+
+<a href="/">Home</a>
