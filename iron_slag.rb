@@ -6,6 +6,7 @@ require 'rack-flash'
 # use Rack::MethodOverride
 # use Rack::Flash
 
+# homepage
 get '/' do
   @terms = Term.all.take(5)
   @categories = Category.all
@@ -13,12 +14,33 @@ get '/' do
   erb :homepage
 end
 
+# terms index
 get '/terms' do
   @terms = Term.all
 
   erb :terms_index
 end
 
+# terms new
+get '/terms/new' do
+  erb :terms_new
+end
+
+# terms search
+post '/terms/search' do
+  @name = params["name"]
+  @definition = params["definition"]
+
+  term = Term.where("name like '%#{@name}%'").first
+  term = Term.where("definition like '%#{@definition}%'").first
+  if term
+    redirect "/terms/#{term.id}"
+  else
+    erb :not_found
+  end
+end
+
+# terms show
 get '/terms/:id' do
   # Lets fetch the ID from the URL so we know which term we are showing
   id = params["id"]
@@ -34,59 +56,74 @@ get '/terms/:id' do
     redirect "/terms"
   end
 end
-#   # also print out the subject
-#   puts "There is a term called #{term.name} in the category #{term.category.name} which is within the #{term.category.subject} category"
-# end
-#
-# Iterate over all the categories
-# categories = Category.all
-# categories.each do |category|
-#   # For each category print the name of the name of the category
-#   puts "Category is: #{category.name}"
-#
-#   # Then for THAT category, iterate over all the terms
-#   category.terms.each do |term|
-#     # For that term print it's name
-#     puts "-- has a #{term.name} term"
-#   end
-# end
 
-# <% content_for :title do %>
-# Welcome to the Iron Slag
-# <% end %>
-#
-# <% content_for :banner do%>
-# Welcome to the Iron Slag - Iron Yard's own Glossary of Tech and Comedy terms
-# <% end %> -->
+# Terms create
+post '/terms' do
+  # Add the term
+  term = Term.create(params["term"])
 
-# <!-- <div class="container">
-#   <div>
-#     <h2>Terms</h2>
-#     <ul>
-#     <% @terms.each do |term| %>
-#       <li><a href="/terms/<%= term.id %>"><%= term.name %></a></li>
-#     <% end %>
-#     </ul>
-#
-# <!-- clicking on any term takes one to the definition -->
-# and provides a weblink as an additional resource
-#
-# <!-- Search for terms (match against the name or the definition) -->
-#     <!-- <form action="/terms/search" method="post">
-#       <input type="text" name="name">
-#       <input type="submit" value="Search Terms">
-#     </form>
-#     </div>
-#
-# <!-- Make new terms -->
-#     <!-- <a href="/terms/new">Add a new term</a> --> --> -->
-#
-# <!-- Change terms -->
-#
-# <!-- Remove terms -->
-#
-# <!-- List of available categories "Back End Engineering" or "Front End Engineering"-->
-#
-# <!-- Make new categories, but not change them, delete them, or search them -->
-#
-# <!-- <h2>The most recent 5 terms added are: #{terms.created_at.last.limit(5)} </h2> -->
+  # Navigate to the terms page
+  redirect "/terms"
+end
+
+# terms edit
+get '/terms/:id/edit' do
+  # Get the id from the parameters
+  id = params["id"]
+
+  # Fetch the term from the database
+  @term = Term.find_by(id: id)
+
+  erb :terms_edit
+end
+
+# terms update
+put '/terms/:id' do
+  # Fetch the id form the params
+  id = params["id"]
+
+  # Get the term from the database
+  term = Term.find_by(id: id)
+
+  # Update the attributes of this term (saving to the database)
+  term.update_attributes(params["term"])
+
+  # Send the user back to the show page for this term
+  redirect "/terms/#{term.id}"
+end
+
+# terms delete
+delete '/terms/:id' do
+  # Get the id from the params
+  id = params["id"]
+
+  # Fetch the term from the database
+  term = Term.find_by(id: id)
+
+  # Delete the term
+  term.delete
+
+  # Redirect the user to the terms index
+  redirect '/terms'
+end
+
+# categories index
+get '/categories' do
+  @categories = Category.all
+
+  erb :categories_index
+end
+
+# categories new
+get '/categories/new' do
+  erb :categories_new
+end
+
+# categories create
+post '/categories' do
+  # Add the category
+  category = Category.create(params["category"])
+
+  # Navigate to the categories page
+  redirect "/categories"
+end

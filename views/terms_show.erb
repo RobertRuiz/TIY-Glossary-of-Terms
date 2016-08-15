@@ -7,4 +7,17 @@
   <li>Resource or Link <%= @term.web_link %></li>
 </ul>
 
-<a href="/terms">Back to the list of terms</a>
+<a href="/terms/<%= @term.id %>/edit">Edit this term</a>
+
+<p>
+<form action="/terms/<%= @term.id %>" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <input type="submit" value="Delete This term">
+</form>
+</p>
+
+<ul>
+  <li><a href="/terms">Back to the list of terms</a></li>
+  <li><a href="/categories">Back to the list of categories</a></li>
+  <li><a href="/">Back to the homepage</a></li>
+</ul>
