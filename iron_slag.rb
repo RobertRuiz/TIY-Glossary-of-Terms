@@ -1,46 +1,25 @@
 require_relative 'models'
 require 'sinatra'
-# require 'rack-flash'
 require 'sinatra/reloader' if development?
+require 'rack-flash'
 
 # use Rack::MethodOverride
 # use Rack::Flash
 
 get '/' do
-  @terms = Term.all
+  @terms = Term.all.take(5)
   @categories = Category.all
 
   erb :homepage
 end
 
-get '/terms/update/:id' do
-  id = params["id"]
-  @terms = Term.find_by(id: id)
+# get '/terms' do
+#   terms = Term.all
+#   terms.each do |term|
+#   erb :terms_index
+# end
 
-  erb :term_update
-end
-
-# Actually does the update when posted from the form
-post '/terms/update/:id' do
-  @id = params["id"]
-  term = Term.find_by(id: @id)
-
-  if term
-    # extract the part of the hash that has to do with "term"
-    term_attributes = params["term"]
-
-    # Use *that* hash to update
-    term.update_attributes(term_attributes)
-
-    # redirect home
-    redirect "/"
-  else
-    erb :not_found
-  end
-end
-
-# terms = Term.all
-# terms.each do |term|
+#
 #   # also print out the subject
 #   puts "There is a term called #{term.name} in the category #{term.category.name} which is within the #{term.category.subject} category"
 # end
