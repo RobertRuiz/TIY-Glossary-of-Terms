@@ -1,9 +1,9 @@
-require 'sqlite3'
+require 'pg'
 require 'active_record'
 
 ActiveRecord::Base.logger = Logger.new(STDOUT)
 ActiveRecord::Base.establish_connection(
-  adapter: "sqlite3",
+  adapter: "postgresql",
   database: "iron_slag.db"
 )
 
