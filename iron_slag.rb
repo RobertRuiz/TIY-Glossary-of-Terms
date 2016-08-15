@@ -13,18 +13,35 @@ get '/' do
   erb :homepage
 end
 
-# get '/terms' do
-#   terms = Term.all
-#   terms.each do |term|
-#   erb :terms_index
-# end
+get '/terms' do
+  @terms = Term.all
 
-#
+  erb :terms_index
+end
+
+get '/terms/:id' do
+  # Lets fetch the ID from the URL so we know which term we are showing!
+  id = params["id"]
+
+  # Lets go fetch that term from the database
+  @term = term.find_by(id: id)
+
+  # if we have a term, lets render the template
+  if @term
+    erb :terms_show
+  else
+    # otherwise, just send the user back to the terms index page (e.g. "/terms")
+    redirect "/terms"
+  end
+end
+
+
+
 #   # also print out the subject
 #   puts "There is a term called #{term.name} in the category #{term.category.name} which is within the #{term.category.subject} category"
 # end
 #
-# # Iterate over all the categories
+# Iterate over all the categories
 # categories = Category.all
 # categories.each do |category|
 #   # For each category print the name of the name of the category

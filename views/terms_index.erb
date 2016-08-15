@@ -2,6 +2,6 @@
 
 <ul>
 <% @terms.each do |term| %>
-  <li><%= @term.name %></li>
+  <li><a href="/terms/<%= :id %>"><%= term.name %></a></li>
 <% end %>
 </ul>
