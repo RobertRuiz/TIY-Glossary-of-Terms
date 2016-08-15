@@ -20,11 +20,11 @@ get '/terms' do
 end
 
 get '/terms/:id' do
-  # Lets fetch the ID from the URL so we know which term we are showing!
+  # Lets fetch the ID from the URL so we know which term we are showing
   id = params["id"]
 
   # Lets go fetch that term from the database
-  @term = term.find_by(id: id)
+  @term = Term.find_by(id: id)
 
   # if we have a term, lets render the template
   if @term
@@ -34,9 +34,6 @@ get '/terms/:id' do
     redirect "/terms"
   end
 end
-
-
-
 #   # also print out the subject
 #   puts "There is a term called #{term.name} in the category #{term.category.name} which is within the #{term.category.subject} category"
 # end

@@ -1,12 +1,12 @@
 <h1>Welcome to the Iron Slag <br> The Iron Yard's own Glossary of Front and Back End Engineering terms</h1>
 
 <h2>The most recent 5 terms added are:</h2>
+
 <ul>
 <% @terms.each do |term| %>
-  <li><a href="/terms/<%= :id %>"><%= term.name %></a></li>
+  <li><a href="/terms/<%= term.id %>"><%= term.name %></a></li>
 <% end %>
 </ul>
-
 
 <a href="/terms">See a complete list of all current terms </a>
 
