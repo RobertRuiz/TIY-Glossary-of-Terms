@@ -4,7 +4,7 @@ require 'active_record'
 ActiveRecord::Base.logger = Logger.new(STDOUT)
 ActiveRecord::Base.establish_connection(
   adapter: "postgresql",
-  database: "iron_slag.db"
+  database: "iron_slag"
 )
 
 class Category < ActiveRecord::Base
